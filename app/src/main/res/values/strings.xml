@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Phrasebook</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_button">Search button</string>
+    <string name="reload">Reload</string>
+    <string name="enter_a_word">Enter a word</string>
+    <string name="search">search</string>
 </resources>
