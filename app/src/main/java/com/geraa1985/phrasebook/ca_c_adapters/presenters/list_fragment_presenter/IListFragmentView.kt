@@ -10,4 +10,6 @@ interface IListFragmentView: MvpView {
     fun hideProgress()
     fun showData(meaningsList: List<DataModel>)
     fun showError(errorMessage: String)
+    fun fabSearchClicked()
+    fun noSuchWord(message: String)
 }

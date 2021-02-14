@@ -23,18 +23,26 @@ class ListFragmentPresenter(
         getData("Hello")
     }
 
-    private fun getData(word: String) {
+    fun getData(word: String) {
         this.word = word
         viewState.showProgress()
         interactor.getData(word)
             .observeOn(scheduler.ui())
             .subscribe({
                 viewState.hideProgress()
-                viewState.showData(it)
+                if (it.isEmpty()) {
+                    viewState.noSuchWord("There is no such word: $word")
+                } else {
+                    viewState.showData(it)
+                }
             }, { error ->
                 viewState.hideProgress()
                 error.message?.let { viewState.showError(it) }
             })
+    }
+
+    fun fabSearchClicked() {
+        viewState.fabSearchClicked()
     }
 
     fun reload() {
