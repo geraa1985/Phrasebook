@@ -1,23 +1,23 @@
 package com.geraa1985.phrasebook
 
 import android.app.Application
-import com.geraa1985.phrasebook.di.components.DaggerMainGraph
-import com.geraa1985.phrasebook.di.components.MainGraph
-import com.geraa1985.phrasebook.di.modules.AppModule
+import com.geraa1985.phrasebook.di.components.AppComponent
+import com.geraa1985.phrasebook.di.components.DaggerAppComponent
 
 class MyApp: Application() {
+
     companion object{
         lateinit var instance: MyApp
     }
 
-    lateinit var mainGraph: MainGraph
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         instance = this
 
-        mainGraph = DaggerMainGraph.builder()
-            .appModule(AppModule(this))
+        appComponent = DaggerAppComponent.builder()
+            .application(this)
             .build()
     }
 }

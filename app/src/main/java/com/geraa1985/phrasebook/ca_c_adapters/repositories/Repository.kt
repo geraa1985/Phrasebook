@@ -10,7 +10,7 @@ import javax.inject.Inject
 class Repository: IRepository {
 
     init {
-        MyApp.instance.mainGraph.inject(this)
+        MyApp.instance.appComponent.inject(this)
     }
 
     @Inject

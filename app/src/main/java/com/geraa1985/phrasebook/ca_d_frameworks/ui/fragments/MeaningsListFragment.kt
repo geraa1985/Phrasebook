@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.geraa1985.phrasebook.MyApp
 import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmodel.ListFragmentViewModel
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.MeaningsListAdapter
 import com.geraa1985.phrasebook.databinding.FragmentListBinding
 import moxy.MvpAppCompatFragment
+import javax.inject.Inject
 
 class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
 
@@ -20,7 +22,15 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
 
     private var adapter: MeaningsListAdapter? = null
 
-    private val viewModel = ViewModelProvider.NewInstanceFactory().create(ListFragmentViewModel::class.java)
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var viewModel: ListFragmentViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        MyApp.instance.appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +42,8 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
 
     override fun onStart() {
         super.onStart()
+
+        viewModel = viewModelFactory.create(ListFragmentViewModel::class.java)
 
         binding.fabSearch.setOnClickListener {
             viewModel.fabSearchClicked()

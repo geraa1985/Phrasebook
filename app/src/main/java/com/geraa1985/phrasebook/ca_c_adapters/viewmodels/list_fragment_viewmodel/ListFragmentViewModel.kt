@@ -3,7 +3,6 @@ package com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmode
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.geraa1985.phrasebook.MyApp
 import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
@@ -11,7 +10,11 @@ import com.geraa1985.phrasebook.ca_d_frameworks.rx.ISchedulerProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class ListFragmentViewModel : ViewModel() {
+class ListFragmentViewModel @Inject constructor(
+    private val interactor: ListInteractor,
+    private val scheduler: ISchedulerProvider,
+    private val navigation: INavigation
+    ) : ViewModel() {
 
     private var word: String? = null
 
@@ -29,17 +32,7 @@ class ListFragmentViewModel : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    @Inject
-    lateinit var navigation: INavigation
-
-    @Inject
-    lateinit var scheduler: ISchedulerProvider
-
-    @Inject
-    lateinit var interactor: ListInteractor
-
     init {
-        MyApp.instance.mainGraph.inject(this)
         getData("Hello")
     }
 

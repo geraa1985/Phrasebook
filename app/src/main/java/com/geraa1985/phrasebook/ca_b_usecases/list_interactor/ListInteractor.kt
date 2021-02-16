@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ListInteractor {
 
     init {
-        MyApp.instance.mainGraph.inject(this)
+        MyApp.instance.appComponent.inject(this)
     }
 
     @Inject

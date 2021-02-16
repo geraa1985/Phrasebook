@@ -8,7 +8,7 @@ import javax.inject.Inject
 class NavigationImpl : INavigation {
 
     init {
-        MyApp.instance.mainGraph.inject(this)
+        MyApp.instance.appComponent.inject(this)
     }
 
     @Inject
