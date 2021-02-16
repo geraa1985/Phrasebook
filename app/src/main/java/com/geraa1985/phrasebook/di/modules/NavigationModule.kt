@@ -1,6 +1,6 @@
 package com.geraa1985.phrasebook.di.modules
 
-import com.geraa1985.phrasebook.ca_c_adapters.presenters.INavigation
+import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.NavigationImpl
 import dagger.Module
 import dagger.Provides

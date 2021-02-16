@@ -1,19 +1,18 @@
 package com.geraa1985.phrasebook.ca_d_frameworks.ui.activities
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.geraa1985.phrasebook.MyApp
-import com.geraa1985.phrasebook.ca_c_adapters.presenters.main_activity_presenter.IMainActivityView
-import com.geraa1985.phrasebook.ca_c_adapters.presenters.main_activity_presenter.MainActivityPresenter
+import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.main_activity_viewmodel.MainActivityViewModel
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.databinding.ActivityMainBinding
-import moxy.MvpAppCompatActivity
-import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
-class MainActivity : MvpAppCompatActivity(),IMainActivityView {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -24,9 +23,7 @@ class MainActivity : MvpAppCompatActivity(),IMainActivityView {
         SupportAppNavigator(this, supportFragmentManager, binding.hostForFragments.id)
     }
 
-    private val presenter: MainActivityPresenter by moxyPresenter {
-        MainActivityPresenter().apply { MyApp.instance.mainGraph.inject(this) }
-    }
+    private val viewModel = ViewModelProvider.NewInstanceFactory().create(MainActivityViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +49,6 @@ class MainActivity : MvpAppCompatActivity(),IMainActivityView {
                 return
             }
         }
-        presenter.backClicked()
+        viewModel.backClicked()
     }
 }

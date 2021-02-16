@@ -1,7 +1,7 @@
 package com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation
 
 import com.geraa1985.phrasebook.MyApp
-import com.geraa1985.phrasebook.ca_c_adapters.presenters.INavigation
+import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
