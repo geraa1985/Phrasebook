@@ -8,8 +8,6 @@ import com.geraa1985.phrasebook.ca_c_adapters.repositories.Repository
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmodel.ListFragmentViewModel
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.main_activity_viewmodel.MainActivityViewModel
-import com.geraa1985.phrasebook.ca_d_frameworks.rx.ISchedulerProvider
-import com.geraa1985.phrasebook.ca_d_frameworks.rx.SchedulerProvider
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.NavigationImpl
 import com.geraa1985.phrasebook.ca_d_frameworks.web.IRetrofitData
 import com.geraa1985.phrasebook.ca_d_frameworks.web.NetworkStatus
@@ -17,10 +15,11 @@ import com.geraa1985.phrasebook.ca_d_frameworks.web.WebData
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import org.koin.android.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.dsl.bind
+import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.NavigatorHolder
@@ -45,7 +44,7 @@ val networkModule = module {
     single {
         Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create(get()))
             .build()
             .create(IRetrofitData::class.java)
@@ -54,12 +53,8 @@ val networkModule = module {
     single { NetworkStatus(statusUrl) } bind INetworkStatus::class
 }
 
-val rxModule = module {
-    single { SchedulerProvider() } bind ISchedulerProvider::class
-}
-
 val repositoryModule = module {
-    single { Repository(get(), get(), get()) } bind IRepository::class
+    single { Repository(get(), get()) } bind IRepository::class
 }
 
 val interactorModule = module {
@@ -68,5 +63,5 @@ val interactorModule = module {
 
 val vmModule = module {
     viewModel { MainActivityViewModel(get()) }
-    viewModel { ListFragmentViewModel(get(),get(),get()) }
+    viewModel { ListFragmentViewModel(get(), get()) }
 }

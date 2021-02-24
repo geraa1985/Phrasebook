@@ -2,7 +2,9 @@ package com.geraa1985.phrasebook
 
 import android.app.Application
 import com.geraa1985.phrasebook.di.koin.*
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 class MyApp: Application() {
 
@@ -14,13 +16,16 @@ class MyApp: Application() {
         super.onCreate()
         instance = this
 
-        startKoin(this, listOf(
-            navigationModule,
-            networkModule,
-            rxModule,
-            repositoryModule,
-            interactorModule,
-            vmModule
-        ))
+        startKoin {
+            androidLogger()
+            androidContext(this@MyApp)
+            modules(listOf(
+                navigationModule,
+                networkModule,
+                repositoryModule,
+                interactorModule,
+                vmModule
+            ))
+        }
     }
 }

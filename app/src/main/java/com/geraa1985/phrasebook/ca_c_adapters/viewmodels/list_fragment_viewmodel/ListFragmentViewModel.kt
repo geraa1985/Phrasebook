@@ -6,14 +6,19 @@ import androidx.lifecycle.ViewModel
 import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
-import com.geraa1985.phrasebook.ca_d_frameworks.rx.ISchedulerProvider
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
-class ListFragmentViewModel constructor(
+class ListFragmentViewModel(
     private val interactor: ListInteractor,
-    private val scheduler: ISchedulerProvider,
     private val navigation: INavigation
-    ) : ViewModel() {
+) : ViewModel(), CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO + Job()
 
     private var word: String? = null
 
@@ -29,8 +34,6 @@ class ListFragmentViewModel constructor(
     fun getFabSearchClickedLiveData(): LiveData<Unit> = fabSearchClickedLiveData
     fun getNoSuchWordLiveData(): LiveData<String> = noSuchWordLiveData
 
-    private val compositeDisposable = CompositeDisposable()
-
     init {
         getData("Hello")
     }
@@ -38,19 +41,15 @@ class ListFragmentViewModel constructor(
     fun getData(word: String) {
         this.word = word
         showProgressLiveData.value = true
-        compositeDisposable.add(interactor.getData(word)
-            .observeOn(scheduler.ui())
-            .subscribe({
-                showProgressLiveData.value = false
-                if (it.isEmpty()) {
-                    noSuchWordLiveData.value = "There is no such word: $word"
-                } else {
-                    showDataLiveData.value = it
-                }
-            }, { error ->
-                showProgressLiveData.value = false
-                error.message?.let { showErrorLiveData.value = it }
-            }))
+        launch {
+            if (interactor.getData(word).isEmpty()) {
+                showProgressLiveData.postValue(false)
+                noSuchWordLiveData.postValue("There is no such word: $word")
+            } else {
+                showProgressLiveData.postValue(false)
+                showDataLiveData.postValue(interactor.getData(word))
+            }
+        }
     }
 
     fun fabSearchClicked() {
@@ -66,8 +65,4 @@ class ListFragmentViewModel constructor(
         return true
     }
 
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
-    }
 }

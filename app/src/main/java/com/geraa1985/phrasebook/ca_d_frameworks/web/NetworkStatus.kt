@@ -1,32 +1,29 @@
 package com.geraa1985.phrasebook.ca_d_frameworks.web
 
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.INetworkStatus
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
-class NetworkStatus(private val url: String): INetworkStatus {
+class NetworkStatus(private val myUrl: String) : INetworkStatus {
 
-    override fun checkConnection(): Single<Boolean> =
-        getInternetStatus(url).subscribeOn(Schedulers.io())
+    override suspend fun isConnected(): Boolean = suspendCoroutine { continuation ->
 
-
-    private fun getInternetStatus(myUrl: String): Single<Boolean> {
-        val url = URL(myUrl)
-        return Single.fromCallable {
+        Thread{
+            val url = URL(myUrl)
             try {
                 val httpUrlConnection = url.openConnection() as HttpURLConnection
                 httpUrlConnection.connectTimeout = 3000
                 httpUrlConnection.connect()
                 if (httpUrlConnection.responseCode == HttpURLConnection.HTTP_OK) {
-                    return@fromCallable true
+                    continuation.resume(true)
                 }
             } catch (e: Exception) {
-                return@fromCallable false
+                continuation.resume(false)
             }
-            return@fromCallable false
-        }
+        }.start()
+
     }
 
 }
