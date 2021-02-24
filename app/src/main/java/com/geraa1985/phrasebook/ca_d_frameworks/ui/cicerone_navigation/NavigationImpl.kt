@@ -1,18 +1,9 @@
 package com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation
 
-import com.geraa1985.phrasebook.MyApp
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
 import ru.terrakok.cicerone.Router
-import javax.inject.Inject
 
-class NavigationImpl : INavigation {
-
-    init {
-        MyApp.instance.appComponent.inject(this)
-    }
-
-    @Inject
-    lateinit var router: Router
+class NavigationImpl (private val router: Router) : INavigation {
 
     override fun goBack() {
         router.exit()

@@ -1,8 +1,8 @@
 package com.geraa1985.phrasebook
 
 import android.app.Application
-import com.geraa1985.phrasebook.di.components.AppComponent
-import com.geraa1985.phrasebook.di.components.DaggerAppComponent
+import com.geraa1985.phrasebook.di.koin.*
+import org.koin.android.ext.android.startKoin
 
 class MyApp: Application() {
 
@@ -10,14 +10,17 @@ class MyApp: Application() {
         lateinit var instance: MyApp
     }
 
-    lateinit var appComponent: AppComponent
-
     override fun onCreate() {
         super.onCreate()
         instance = this
 
-        appComponent = DaggerAppComponent.builder()
-            .application(this)
-            .build()
+        startKoin(this, listOf(
+            navigationModule,
+            networkModule,
+            rxModule,
+            repositoryModule,
+            interactorModule,
+            vmModule
+        ))
     }
 }

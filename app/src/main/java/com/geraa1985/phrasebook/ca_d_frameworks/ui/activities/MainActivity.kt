@@ -2,39 +2,34 @@ package com.geraa1985.phrasebook.ca_d_frameworks.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.geraa1985.phrasebook.MyApp
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.main_activity_viewmodel.MainActivityViewModel
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.databinding.ActivityMainBinding
+import org.koin.android.ext.android.getKoin
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var navigatorHolder: NavigatorHolder
+    private val navigatorHolder: NavigatorHolder by lazy {
+        getKoin().get()
+    }
 
     private val navigator: Navigator by lazy {
         SupportAppNavigator(this, supportFragmentManager, binding.hostForFragments.id)
     }
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        MyApp.instance.appComponent.inject(this)
-        viewModel = viewModelFactory.create(MainActivityViewModel::class.java)
+        viewModel.start()
     }
 
     override fun onResumeFragments() {

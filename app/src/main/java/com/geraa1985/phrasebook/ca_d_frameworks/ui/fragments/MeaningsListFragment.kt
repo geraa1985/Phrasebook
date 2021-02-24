@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geraa1985.phrasebook.MyApp
 import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmodel.ListFragmentViewModel
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.MeaningsListAdapter
 import com.geraa1985.phrasebook.databinding.FragmentListBinding
 import moxy.MvpAppCompatFragment
-import javax.inject.Inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
 
@@ -22,15 +20,7 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
 
     private var adapter: MeaningsListAdapter? = null
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewModel: ListFragmentViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        MyApp.instance.appComponent.inject(this)
-    }
+    private val viewModel: ListFragmentViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +32,6 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
 
     override fun onStart() {
         super.onStart()
-
-        viewModel = viewModelFactory.create(ListFragmentViewModel::class.java)
 
         binding.fabSearch.setOnClickListener {
             viewModel.fabSearchClicked()
@@ -71,7 +59,7 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
 
     private fun onFabSearchClicked() {
         val dialogSearch = SearchDialogFragment()
-        dialogSearch.setOnSearchClickListener(object : SearchDialogFragment.OnSearchClickListener{
+        dialogSearch.setOnSearchClickListener(object : SearchDialogFragment.OnSearchClickListener {
             override fun onClick(searchWord: String) {
                 viewModel.getData(searchWord)
             }

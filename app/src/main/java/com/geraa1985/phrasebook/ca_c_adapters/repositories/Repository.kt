@@ -4,10 +4,8 @@ import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_b_usecases.IRepository
 import com.geraa1985.phrasebook.ca_d_frameworks.rx.ISchedulerProvider
 import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
 
-class Repository
-@Inject constructor(
+class Repository constructor(
     private val web: IWeb,
     private val networkStatus: INetworkStatus,
     private val schedulers: ISchedulerProvider

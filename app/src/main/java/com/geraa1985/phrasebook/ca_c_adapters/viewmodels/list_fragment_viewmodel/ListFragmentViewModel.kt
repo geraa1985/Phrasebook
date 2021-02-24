@@ -8,9 +8,8 @@ import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
 import com.geraa1985.phrasebook.ca_d_frameworks.rx.ISchedulerProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import javax.inject.Inject
 
-class ListFragmentViewModel @Inject constructor(
+class ListFragmentViewModel constructor(
     private val interactor: ListInteractor,
     private val scheduler: ISchedulerProvider,
     private val navigation: INavigation

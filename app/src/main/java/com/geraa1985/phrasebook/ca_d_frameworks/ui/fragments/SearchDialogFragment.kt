@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isEmpty
 import com.geraa1985.phrasebook.databinding.DialogSearchBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
