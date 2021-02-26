@@ -20,14 +20,14 @@
             style="@style/HeaderTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Word" />
+            tools:text="Word meaning" />
 
         <TextView
             android:id="@+id/text_translation"
             style="@style/BaseTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Word kkk" />
+            tools:text="Translate" />
 
     </LinearLayout>
 
