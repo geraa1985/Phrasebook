@@ -53,4 +53,9 @@ class SearchDialogFragment: BottomSheetDialogFragment() {
     internal fun setOnSearchClickListener(listener: OnSearchClickListener) {
         onSearchClickListener = listener
     }
+
+    override fun onDestroyView() {
+        onSearchClickListener = null
+        super.onDestroyView()
+    }
 }

@@ -6,8 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.databinding.RvItemMeaningsBinding
 
-class MeaningsListAdapter(private var data: List<DataModel>) :
+class MeaningsListAdapter :
     RecyclerView.Adapter<MeaningsListAdapter.RecyclerItemViewHolder>() {
+
+    private var onItemClickListener: OnItemClickListener? = null
+
+    private var data: List<DataModel>? = null
 
     fun setData(data: List<DataModel>) {
         this.data = data
@@ -22,11 +26,11 @@ class MeaningsListAdapter(private var data: List<DataModel>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
-        holder.bind(data[position])
+        data?.get(position)?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data?.size ?: 0
     }
 
     inner class RecyclerItemViewHolder(
@@ -37,7 +41,28 @@ class MeaningsListAdapter(private var data: List<DataModel>) :
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 binding.textMeaning.text = data.text
                 binding.textTranslation.text = data.meanings?.get(0)?.translation?.translation
+
+                itemView.setOnClickListener {
+                    onItemClickListener?.onClick(
+                        binding.textMeaning.text.toString(),
+                        data.meanings?.get(0)?.translation?.translation,
+                        "https:" + data.meanings?.get(0)?.imageUrl
+                        )
+                }
             }
         }
+
+    }
+
+    interface OnItemClickListener {
+        fun onClick(
+            word: String,
+            translation: String?,
+            imgUrl: String
+        )
+    }
+
+    internal fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
     }
 }

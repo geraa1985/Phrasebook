@@ -5,9 +5,11 @@ import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.INetworkStatus
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWeb
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.Repository
+import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.ILoadImage
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmodel.ListFragmentViewModel
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.main_activity_viewmodel.MainActivityViewModel
+import com.geraa1985.phrasebook.ca_d_frameworks.imgLoader.GlideImgLoader
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.NavigationImpl
 import com.geraa1985.phrasebook.ca_d_frameworks.web.IRetrofitData
 import com.geraa1985.phrasebook.ca_d_frameworks.web.NetworkStatus
@@ -51,6 +53,7 @@ val networkModule = module {
     } bind IRetrofitData::class
     single { WebData(get()) } bind IWeb::class
     single { NetworkStatus(statusUrl) } bind INetworkStatus::class
+    single { GlideImgLoader() } bind ILoadImage::class
 }
 
 val repositoryModule = module {

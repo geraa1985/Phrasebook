@@ -25,13 +25,13 @@ class ListFragmentViewModel(
     private val showProgressLiveData = MutableLiveData<Boolean>()
     private val showDataLiveData = MutableLiveData<List<DataModel>>()
     private val showErrorLiveData = MutableLiveData<String>()
-    private val fabSearchClickedLiveData = MutableLiveData<Unit>()
+    private val fabSearchClickedLiveData = MutableLiveData<Boolean>()
     private val noSuchWordLiveData = MutableLiveData<String>()
 
     fun getShowProgressLiveData(): LiveData<Boolean> = showProgressLiveData
     fun getShowDataLiveData(): LiveData<List<DataModel>> = showDataLiveData
     fun getShowErrorLiveData(): LiveData<String> = showErrorLiveData
-    fun getFabSearchClickedLiveData(): LiveData<Unit> = fabSearchClickedLiveData
+    fun getFabSearchClickedLiveData(): LiveData<Boolean> = fabSearchClickedLiveData
     fun getNoSuchWordLiveData(): LiveData<String> = noSuchWordLiveData
 
     init {
@@ -53,11 +53,16 @@ class ListFragmentViewModel(
     }
 
     fun fabSearchClicked() {
-        fabSearchClickedLiveData.value = Unit
+        fabSearchClickedLiveData.value = true
     }
 
     fun reload() {
         word?.let { getData(it) }
+    }
+
+    fun itemClicked(word: String, translation: String?, imgUrl: String) {
+        navigation.goToWordScreen(word, translation, imgUrl)
+        fabSearchClickedLiveData.value = false
     }
 
     fun backClicked(): Boolean {

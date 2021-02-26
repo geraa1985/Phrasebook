@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmodel.ListFragmentViewModel
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.MeaningsListAdapter
 import com.geraa1985.phrasebook.databinding.FragmentListBinding
-import moxy.MvpAppCompatFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
+class MeaningsListFragment : Fragment(), BackButtonListener {
 
     private lateinit var binding: FragmentListBinding
 
@@ -33,6 +33,8 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
     override fun onStart() {
         super.onStart()
 
+        creatAdapter()
+
         binding.fabSearch.setOnClickListener {
             viewModel.fabSearchClicked()
         }
@@ -48,13 +50,14 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
                 showError(it)
             }
             getFabSearchClickedLiveData().observe(viewLifecycleOwner) {
-                onFabSearchClicked()
+                if (it) {
+                    onFabSearchClicked()
+                }
             }
             getNoSuchWordLiveData().observe(viewLifecycleOwner) {
                 noSuchWord(it)
             }
         }
-
     }
 
     private fun onFabSearchClicked() {
@@ -75,12 +78,19 @@ class MeaningsListFragment : MvpAppCompatFragment(), BackButtonListener {
         binding.progressCircular.visibility = View.GONE
     }
 
+    private fun creatAdapter() {
+        binding.rvMeanings.layoutManager = LinearLayoutManager(requireContext())
+        adapter = MeaningsListAdapter()
+        binding.rvMeanings.adapter = adapter
+        adapter?.setOnItemClickListener(object : MeaningsListAdapter.OnItemClickListener {
+            override fun onClick(word: String, translation: String?, imgUrl: String) {
+                viewModel.itemClicked(word, translation, imgUrl)
+            }
+        })
+    }
+
     private fun showData(meaningsList: List<DataModel>) {
-        adapter?.setData(meaningsList) ?: run {
-            binding.rvMeanings.layoutManager = LinearLayoutManager(requireContext())
-            adapter = MeaningsListAdapter(meaningsList)
-            binding.rvMeanings.adapter = adapter
-        }
+        adapter?.setData(meaningsList)
     }
 
     private fun noSuchWord(message: String) {

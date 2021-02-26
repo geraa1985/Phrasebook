@@ -3,7 +3,7 @@ package com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
 import ru.terrakok.cicerone.Router
 
-class NavigationImpl (private val router: Router) : INavigation {
+class NavigationImpl(private val router: Router) : INavigation {
 
     override fun goBack() {
         router.exit()
@@ -13,7 +13,8 @@ class NavigationImpl (private val router: Router) : INavigation {
         router.newRootScreen(FragmentScreen.meaningsListScreen())
     }
 
-    override fun goToMeaningsListScreen() {
-        router.navigateTo(FragmentScreen.meaningsListScreen())
+    override fun goToWordScreen(word: String, translation: String?, imgUrl: String) {
+        router.navigateTo(FragmentScreen.wordScreen(word, translation, imgUrl))
     }
+
 }

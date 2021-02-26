@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Meanings(
-    @Expose @SerializedName("translation") val translation: Translation?
+    @Expose @SerializedName("translation") val translation: Translation?,
+    @Expose @SerializedName("imageUrl") val imageUrl: String?
 ): Parcelable
