@@ -17,4 +17,7 @@ class NavigationImpl(private val router: Router) : INavigation {
         router.navigateTo(FragmentScreen.wordScreen(word, translation, imgUrl))
     }
 
+    override fun goToHistoryScreen(word: String) {
+        router.navigateTo(FragmentScreen.historyScreen(word))
+    }
 }

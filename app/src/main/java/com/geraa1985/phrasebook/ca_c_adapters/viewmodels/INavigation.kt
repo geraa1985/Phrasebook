@@ -4,4 +4,5 @@ interface INavigation {
     fun goBack()
     fun setRootScreenToMeanigsList()
     fun goToWordScreen(word: String, translation: String?, imgUrl: String)
+    fun goToHistoryScreen(word: String)
 }

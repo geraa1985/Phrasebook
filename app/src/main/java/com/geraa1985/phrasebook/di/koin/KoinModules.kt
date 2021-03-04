@@ -1,14 +1,17 @@
 package com.geraa1985.phrasebook.di.koin
 
+import android.content.Context
+import androidx.room.Room
+import com.geraa1985.phrasebook.MyApp
 import com.geraa1985.phrasebook.ca_b_usecases.IRepository
 import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.INetworkStatus
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWeb
+import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWordCache
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.Repository
-import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.ILoadImage
-import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
-import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmodel.ListFragmentViewModel
-import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.main_activity_viewmodel.MainActivityViewModel
+import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.*
+import com.geraa1985.phrasebook.ca_d_frameworks.db.room.appdb.AppDB
+import com.geraa1985.phrasebook.ca_d_frameworks.db.room.caches.WordCache
 import com.geraa1985.phrasebook.ca_d_frameworks.imgLoader.GlideImgLoader
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.NavigationImpl
 import com.geraa1985.phrasebook.ca_d_frameworks.web.IRetrofitData
@@ -19,6 +22,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -66,5 +70,21 @@ val interactorModule = module {
 
 val vmModule = module {
     viewModel { MainActivityViewModel(get()) }
-    viewModel { ListFragmentViewModel(get(), get()) }
+    viewModel { ListFragmentViewModel(get(), get(), get()) }
+    viewModel { HistoryListFragmentViewModel(get(), get()) }
+}
+
+val appModule = module {
+    single(named(APP_CONTEXT)) { MyApp.instance } bind Context::class
+}
+
+val cacheModule = module {
+    single {
+        Room.databaseBuilder(
+            get(named(APP_CONTEXT)),
+            AppDB::class.java,
+            AppDB.NAME_DB
+        ).build()
+    } bind AppDB::class
+    single { WordCache(get()) } bind IWordCache::class
 }

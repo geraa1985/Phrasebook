@@ -24,7 +24,9 @@ class MyApp: Application() {
                 networkModule,
                 repositoryModule,
                 interactorModule,
-                vmModule
+                vmModule,
+                cacheModule,
+                appModule
             ))
         }
     }

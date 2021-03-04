@@ -1,11 +1,11 @@
-package com.geraa1985.phrasebook.ca_c_adapters.viewmodels.list_fragment_viewmodel
+package com.geraa1985.phrasebook.ca_c_adapters.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
-import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
+import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWordCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -14,7 +14,8 @@ import kotlin.coroutines.CoroutineContext
 
 class ListFragmentViewModel(
     private val interactor: ListInteractor,
-    private val navigation: INavigation
+    private val navigation: INavigation,
+    private val wordCache: IWordCache
 ) : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
@@ -48,6 +49,7 @@ class ListFragmentViewModel(
             } else {
                 showProgressLiveData.postValue(false)
                 showDataLiveData.postValue(interactor.getData(word))
+                wordCache.addWord(word)
             }
         }
     }
