@@ -16,6 +16,13 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MeaningsListFragment : Fragment(), BackButtonListener {
 
+    companion object {
+        private const val WORD_KEY = "word"
+        fun startWithWord(word: String) = MeaningsListFragment().apply {
+            arguments = Bundle().apply { putString(WORD_KEY, word) }
+        }
+    }
+
     private lateinit var binding: FragmentListBinding
 
     private var adapter: MeaningsListAdapter? = null
@@ -34,6 +41,11 @@ class MeaningsListFragment : Fragment(), BackButtonListener {
         super.onStart()
 
         creatAdapter()
+
+        arguments?.getString(WORD_KEY)?.let {
+            viewModel.getData(it)
+            arguments = null
+        }
 
         binding.fabSearch.setOnClickListener {
             viewModel.fabSearchClicked()

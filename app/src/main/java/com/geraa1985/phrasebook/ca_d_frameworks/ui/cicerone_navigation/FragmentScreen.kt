@@ -17,6 +17,7 @@ class FragmentScreen(private val fragment: Fragment) : SupportAppScreen() {
         fun wordScreen(word: String, translation: String?, imgUrl: String) =
             FragmentScreen(WordFragment.newInstance(word, translation, imgUrl))
         fun historyScreen(word: String) = FragmentScreen(HistoryListFragment.newInstance(word))
+        fun meaningsWithWord(word: String) = FragmentScreen(MeaningsListFragment.startWithWord(word))
     }
 
 }

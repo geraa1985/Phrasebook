@@ -37,6 +37,10 @@ class HistoryListFragmentViewModel(
         }
     }
 
+    fun getMeanings(word: String) {
+        navigation.goToMeaningsWithWord(word)
+    }
+
     fun backClicked(): Boolean {
         navigation.goBack()
         return true

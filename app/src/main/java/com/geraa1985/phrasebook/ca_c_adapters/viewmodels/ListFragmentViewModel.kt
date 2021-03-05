@@ -35,10 +35,6 @@ class ListFragmentViewModel(
     fun getFabSearchClickedLiveData(): LiveData<Boolean> = fabSearchClickedLiveData
     fun getNoSuchWordLiveData(): LiveData<String> = noSuchWordLiveData
 
-    init {
-        getData("Hello")
-    }
-
     fun getData(word: String) {
         this.word = word
         showProgressLiveData.value = true

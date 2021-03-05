@@ -52,7 +52,7 @@ class HistoryListFragment : Fragment(), BackButtonListener {
         binding.rvHistoryList.adapter = adapter
         adapter?.setOnItemClickListener(object : HistoryListAdapter.OnItemClickListener {
             override fun onClick(word: String) {
-//                viewModel.itemClicked(word)
+                viewModel.getMeanings(word)
             }
         })
     }

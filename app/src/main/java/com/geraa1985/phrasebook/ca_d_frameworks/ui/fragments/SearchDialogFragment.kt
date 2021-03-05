@@ -3,6 +3,7 @@ package com.geraa1985.phrasebook.ca_d_frameworks.ui.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,17 @@ class SearchDialogFragment: BottomSheetDialogFragment() {
                 it.onClick(binding.textForSerach.text.toString())
                 dismiss()
             }
+        }
+
+        binding.textForSerach.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                onSearchClickListener?.let {
+                    it.onClick(binding.textForSerach.text.toString())
+                    dismiss()
+                    return@setOnKeyListener true
+                }
+            }
+            return@setOnKeyListener false
         }
     }
 

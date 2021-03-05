@@ -20,4 +20,8 @@ class NavigationImpl(private val router: Router) : INavigation {
     override fun goToHistoryScreen(word: String) {
         router.navigateTo(FragmentScreen.historyScreen(word))
     }
+
+    override fun goToMeaningsWithWord(word: String) {
+        router.navigateTo(FragmentScreen.meaningsWithWord(word))
+    }
 }
