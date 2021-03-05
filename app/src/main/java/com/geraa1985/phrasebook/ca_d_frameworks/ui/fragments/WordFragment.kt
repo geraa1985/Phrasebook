@@ -49,6 +49,15 @@ class WordFragment : Fragment(), BackButtonListener {
     override fun onStart() {
         super.onStart()
 
+        setData()
+
+        binding.swipeToRefresh.setOnRefreshListener {
+            setData()
+            binding.swipeToRefresh.isRefreshing = false
+        }
+    }
+
+    private fun setData() {
         binding.word.text = arguments?.getString(WORD_KEY)
         binding.translation.text = arguments?.getString(TRANSLATION_KEY)
         arguments?.getString(IMAGE_KEY)?.let {
