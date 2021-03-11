@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.geraa1985.history.com.geraa1985.phrasebook.ca_d_frameworks.ui.fragments.HistoryListFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_history_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/rv_history_item"/>
+
+    <TextView
+        android:id="@+id/no_words"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="48sp"
+        android:visibility="invisible"/>
+
+
+</FrameLayout>

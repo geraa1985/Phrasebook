@@ -1,0 +1,27 @@
+package com.geraa1985.phrasebook.ca_d_frameworks.cicerone_navigation
+
+import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.INavigation
+import ru.terrakok.cicerone.Router
+
+class NavigationImpl(private val router: Router) : INavigation {
+
+    override fun goBack() {
+        router.exit()
+    }
+
+    override fun setRootScreenToMeanigsList() {
+        router.newRootScreen(FragmentScreen.meaningsListScreen())
+    }
+
+    override fun goToWordScreen(word: String, translation: String?, imgUrl: String) {
+        router.navigateTo(FragmentScreen.wordScreen(word, translation, imgUrl))
+    }
+
+    override fun goToHistoryScreen(word: String) {
+        router.navigateTo(FragmentScreen.historyScreen(word))
+    }
+
+    override fun goToMeaningsWithWord(word: String) {
+        router.navigateTo(FragmentScreen.meaningsWithWord(word))
+    }
+}
