@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ca_d_frameworks.ui.fragments.HistoryListFragment">
+    tools:context="com.geraa1985.history.com.geraa1985.phrasebook.ca_d_frameworks.ui.fragments.HistoryListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_history_list"

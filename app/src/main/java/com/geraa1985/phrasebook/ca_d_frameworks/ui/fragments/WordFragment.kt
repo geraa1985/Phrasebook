@@ -8,12 +8,11 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.request.RequestOptions
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.ILoadImage
-import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.databinding.FragmentWordBinding
 import org.koin.android.ext.android.getKoin
 import ru.terrakok.cicerone.Router
 
-class WordFragment : Fragment(), BackButtonListener {
+class WordFragment : Fragment(), com.geraa1985.phrasebook.ca_d_frameworks.cicerone_navigation.BackButtonListener {
 
     companion object {
         private const val WORD_KEY = "WORD_KEY"

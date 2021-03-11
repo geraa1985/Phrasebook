@@ -21,8 +21,6 @@ allprojects {
     }
 }
 
-
-
 //For all subprojects - generate compileSdkVersion, minSdkVersion, targetSdkVersion and Java compatibility
 subprojects {
     afterEvaluate { project ->
@@ -38,6 +36,10 @@ subprojects {
                 compileOptions {
                     sourceCompatibility Config.java_version
                     targetCompatibility Config.java_version
+                }
+
+                buildFeatures {
+                    viewBinding = true
                 }
             }
         }

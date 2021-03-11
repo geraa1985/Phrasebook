@@ -7,13 +7,9 @@ import com.geraa1985.phrasebook.ca_b_usecases.IRepository
 import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.INetworkStatus
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWeb
-import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWordCache
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.Repository
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.*
-import com.geraa1985.phrasebook.ca_d_frameworks.db.room.appdb.AppDB
-import com.geraa1985.phrasebook.ca_d_frameworks.db.room.caches.WordCache
 import com.geraa1985.phrasebook.ca_d_frameworks.imgLoader.GlideImgLoader
-import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.NavigationImpl
 import com.geraa1985.phrasebook.ca_d_frameworks.web.IRetrofitData
 import com.geraa1985.phrasebook.ca_d_frameworks.web.NetworkStatus
 import com.geraa1985.phrasebook.ca_d_frameworks.web.WebData
@@ -35,7 +31,7 @@ val navigationModule = module {
     single { Cicerone.create() } bind Cicerone::class
     single { get<Cicerone<Router>>().navigatorHolder } bind NavigatorHolder::class
     single { get<Cicerone<Router>>().router } bind Router::class
-    single { NavigationImpl(get()) } bind INavigation::class
+    single { com.geraa1985.phrasebook.ca_d_frameworks.cicerone_navigation.NavigationImpl(get()) } bind INavigation::class
 }
 
 val networkModule = module {
@@ -82,9 +78,9 @@ val cacheModule = module {
     single {
         Room.databaseBuilder(
             get(named(APP_CONTEXT)),
-            AppDB::class.java,
-            AppDB.NAME_DB
+            com.geraa1985.cache.room.appdb.AppDB::class.java,
+            com.geraa1985.cache.room.appdb.AppDB.NAME_DB
         ).build()
-    } bind AppDB::class
-    single { WordCache(get()) } bind IWordCache::class
+    } bind com.geraa1985.cache.room.appdb.AppDB::class
+    single { com.geraa1985.cache.room.caches.WordCache(get()) } bind com.geraa1985.cache.IWordCache::class
 }

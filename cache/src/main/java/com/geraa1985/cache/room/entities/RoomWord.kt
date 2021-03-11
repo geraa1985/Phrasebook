@@ -1,4 +1,4 @@
-package com.geraa1985.phrasebook.ca_d_frameworks.db.room.entities
+package com.geraa1985.cache.room.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,8 +1,8 @@
-package com.geraa1985.phrasebook.ca_d_frameworks.db.room.caches
+package com.geraa1985.cache.room.caches
 
-import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWordCache
-import com.geraa1985.phrasebook.ca_d_frameworks.db.room.appdb.AppDB
-import com.geraa1985.phrasebook.ca_d_frameworks.db.room.entities.RoomWord
+import com.geraa1985.cache.IWordCache
+import com.geraa1985.cache.room.appdb.AppDB
+import com.geraa1985.cache.room.entities.RoomWord
 
 class WordCache(private val db: AppDB): IWordCache {
 

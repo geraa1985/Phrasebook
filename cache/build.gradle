@@ -1,0 +1,12 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+dependencies {
+    //Room
+    api Room.runtime
+    kapt Room.compiler
+    implementation Room.ktx
+}

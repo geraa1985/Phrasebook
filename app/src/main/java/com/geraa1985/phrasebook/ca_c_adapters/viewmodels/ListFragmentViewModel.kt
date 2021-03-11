@@ -3,9 +3,7 @@ package com.geraa1985.phrasebook.ca_c_adapters.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.geraa1985.model.DataModel
 import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
-import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWordCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,7 +13,7 @@ import kotlin.coroutines.CoroutineContext
 class ListFragmentViewModel(
     private val interactor: ListInteractor,
     private val navigation: INavigation,
-    private val wordCache: IWordCache
+    private val wordCache: com.geraa1985.cache.IWordCache
 ) : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext

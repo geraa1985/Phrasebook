@@ -1,4 +1,4 @@
-package com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation
+package com.geraa1985.phrasebook.ca_d_frameworks.cicerone_navigation
 
 import androidx.fragment.app.Fragment
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.fragments.HistoryListFragment

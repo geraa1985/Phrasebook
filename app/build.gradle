@@ -57,6 +57,7 @@ android {
 dependencies {
 
     implementation project(Modules.model)
+    implementation project(Modules.cache)
 
     //Base
     implementation BaseDependencies.core_ktx
@@ -72,6 +73,9 @@ dependencies {
     testImplementation UnitTest.junit
     testImplementation UnitTest.mockk
 
+    //Cicerone
+    implementation Cicerone.cicerone
+
     //UI-tests
     androidTestImplementation UiTests.junit
     androidTestImplementation UiTests.espresso_core
@@ -84,9 +88,6 @@ dependencies {
     implementation Moxy.ktx
     implementation Moxy.androidx
 
-    //Cicerone
-    implementation Cicerone.cicerone
-
     //OkHttp
     implementation OkHttp.okhttp
 
@@ -98,11 +99,6 @@ dependencies {
     //Glide
     implementation Glide.glide
     kapt Glide.compiler
-
-    //Room
-    implementation Room.runtime
-    kapt Room.compiler
-    implementation Room.ktx
 
     //Koin
     implementation Koin.koin_android

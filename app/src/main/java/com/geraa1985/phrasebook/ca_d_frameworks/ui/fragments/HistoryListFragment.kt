@@ -4,19 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.HistoryListFragmentViewModel
-import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
-import com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.HistoryListAdapter
+import com.geraa1985.phrasebook.ca_d_frameworks.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.databinding.FragmentHistoryListBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class HistoryListFragment : Fragment(), BackButtonListener {
+class HistoryListFragment : androidx.fragment.app.Fragment(), BackButtonListener {
 
     private lateinit var binding: FragmentHistoryListBinding
 
-    private var adapter: HistoryListAdapter? = null
+    private var adapter: com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.HistoryListAdapter? = null
 
     private val viewModel: HistoryListFragmentViewModel by viewModel()
 
@@ -48,9 +46,9 @@ class HistoryListFragment : Fragment(), BackButtonListener {
 
     private fun creatAdapter() {
         binding.rvHistoryList.layoutManager = LinearLayoutManager(requireContext())
-        adapter = HistoryListAdapter()
+        adapter = com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.HistoryListAdapter()
         binding.rvHistoryList.adapter = adapter
-        adapter?.setOnItemClickListener(object : HistoryListAdapter.OnItemClickListener {
+        adapter?.setOnItemClickListener(object : com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.HistoryListAdapter.OnItemClickListener {
             override fun onClick(word: String) {
                 viewModel.getMeanings(word)
             }

@@ -1,4 +1,4 @@
-package com.geraa1985.phrasebook.ca_c_adapters.repositories
+package com.geraa1985.cache
 
 interface IWordCache {
     fun getAllWords(): List<String>

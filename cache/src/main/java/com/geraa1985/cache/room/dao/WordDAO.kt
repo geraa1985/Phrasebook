@@ -1,10 +1,10 @@
-package com.geraa1985.phrasebook.ca_d_frameworks.db.room.dao
+package com.geraa1985.cache.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.geraa1985.phrasebook.ca_d_frameworks.db.room.entities.RoomWord
+import com.geraa1985.cache.room.entities.RoomWord
 
 @Dao
 interface WordDAO {

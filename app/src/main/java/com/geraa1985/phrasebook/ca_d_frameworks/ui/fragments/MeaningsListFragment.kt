@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geraa1985.model.DataModel
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.ListFragmentViewModel
-import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.MeaningsListAdapter
 import com.geraa1985.phrasebook.databinding.FragmentListBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MeaningsListFragment : Fragment(), BackButtonListener {
+class MeaningsListFragment : Fragment(),
+    com.geraa1985.phrasebook.ca_d_frameworks.cicerone_navigation.BackButtonListener {
 
     companion object {
         private const val WORD_KEY = "word"

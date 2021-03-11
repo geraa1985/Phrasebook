@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.geraa1985.phrasebook.R
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.MainActivityViewModel
-import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.databinding.ActivityMainBinding
 import org.koin.android.ext.android.getKoin
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
-            if (it is BackButtonListener && it.backClicked()) {
+            if (it is com.geraa1985.phrasebook.ca_d_frameworks.cicerone_navigation.BackButtonListener && it.backClicked()) {
                 return
             }
         }
