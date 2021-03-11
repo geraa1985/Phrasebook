@@ -1,4 +1,4 @@
-package com.geraa1985.phrasebook.ca_a_entities
+package com.geraa1985.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose

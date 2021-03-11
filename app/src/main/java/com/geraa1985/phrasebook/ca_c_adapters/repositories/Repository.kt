@@ -1,6 +1,5 @@
 package com.geraa1985.phrasebook.ca_c_adapters.repositories
 
-import com.geraa1985.phrasebook.ca_a_entities.DataModel
 import com.geraa1985.phrasebook.ca_b_usecases.IRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +14,7 @@ class Repository constructor(
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + Job()
 
-    override suspend fun getData(word: String): List<DataModel> =
+    override suspend fun getData(word: String): List<com.geraa1985.model.DataModel> =
         if (networkStatus.isConnected()) {
             web.getData(word)
         } else {

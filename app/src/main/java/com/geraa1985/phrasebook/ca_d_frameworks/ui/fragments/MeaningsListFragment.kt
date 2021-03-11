@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.geraa1985.phrasebook.ca_a_entities.DataModel
+import com.geraa1985.model.DataModel
 import com.geraa1985.phrasebook.ca_c_adapters.viewmodels.ListFragmentViewModel
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.cicerone_navigation.BackButtonListener
 import com.geraa1985.phrasebook.ca_d_frameworks.ui.rv_adapters.MeaningsListAdapter
@@ -101,7 +101,7 @@ class MeaningsListFragment : Fragment(), BackButtonListener {
         })
     }
 
-    private fun showData(meaningsList: List<DataModel>) {
+    private fun showData(meaningsList: List<com.geraa1985.model.DataModel>) {
         adapter?.setData(meaningsList)
     }
 

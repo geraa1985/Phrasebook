@@ -56,6 +56,8 @@ android {
 
 dependencies {
 
+    implementation project(Modules.model)
+
     //Base
     implementation BaseDependencies.core_ktx
     implementation BaseDependencies.kotlin_std_lib

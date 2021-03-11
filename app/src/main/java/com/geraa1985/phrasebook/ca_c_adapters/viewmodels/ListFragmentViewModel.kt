@@ -3,7 +3,7 @@ package com.geraa1985.phrasebook.ca_c_adapters.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.geraa1985.phrasebook.ca_a_entities.DataModel
+import com.geraa1985.model.DataModel
 import com.geraa1985.phrasebook.ca_b_usecases.list_interactor.ListInteractor
 import com.geraa1985.phrasebook.ca_c_adapters.repositories.IWordCache
 import kotlinx.coroutines.CoroutineScope
@@ -24,13 +24,13 @@ class ListFragmentViewModel(
     private var word: String? = null
 
     private val showProgressLiveData = MutableLiveData<Boolean>()
-    private val showDataLiveData = MutableLiveData<List<DataModel>>()
+    private val showDataLiveData = MutableLiveData<List<com.geraa1985.model.DataModel>>()
     private val showErrorLiveData = MutableLiveData<String>()
     private val fabSearchClickedLiveData = MutableLiveData<Boolean>()
     private val noSuchWordLiveData = MutableLiveData<String>()
 
     fun getShowProgressLiveData(): LiveData<Boolean> = showProgressLiveData
-    fun getShowDataLiveData(): LiveData<List<DataModel>> = showDataLiveData
+    fun getShowDataLiveData(): LiveData<List<com.geraa1985.model.DataModel>> = showDataLiveData
     fun getShowErrorLiveData(): LiveData<String> = showErrorLiveData
     fun getFabSearchClickedLiveData(): LiveData<Boolean> = fabSearchClickedLiveData
     fun getNoSuchWordLiveData(): LiveData<String> = noSuchWordLiveData
